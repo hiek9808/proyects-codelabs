@@ -5,8 +5,8 @@ import android.os.Bundle;
 import com.example.mipromedio.adapter.CourseAdapter;
 import com.example.mipromedio.data.Course;
 import com.example.mipromedio.data.CourseRepository;
+import com.example.mipromedio.ui.AddNewCourseDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,24 +20,24 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
-
+    private CourseRepository courseRepository;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final CourseRepository courseRepository = new CourseRepository(getApplication());
+        courseRepository = new CourseRepository(getApplication());
 
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final CourseAdapter adapter = new CourseAdapter(this);
+        //final AddNewCourseDialogFragment addNewCourseDialogFragment = new AddNewCourseDialogFragment(MainActivity.this);
 
 
         courseRepository.getAll().observe(this, new Observer<List<Course>>() {
@@ -54,11 +54,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Course course = new Course("Ingles");
-                courseRepository.create(course);
-                recyclerView.getAdapter().notifyDataSetChanged();
-                Snackbar.make(view, "nuevo curso agregado", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                createDialog();
+                //Snackbar.make(view, "", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
             }
         });
 
@@ -107,5 +106,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setCourses(){
+    }
+
+    public void createDialog(){
+        AddNewCourseDialogFragment newFragment = new AddNewCourseDialogFragment(courseRepository);
+        newFragment.show(getSupportFragmentManager(), "courses");
     }
 }
