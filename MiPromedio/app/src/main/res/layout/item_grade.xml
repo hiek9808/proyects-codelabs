@@ -9,8 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
 
 
         <TextView
@@ -19,6 +22,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             tools:text="Grade 1" />
 
         <TextView
@@ -26,12 +31,16 @@
             style="@style/style_text_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             tools:text="30 %" />
 
         <TextView
             style="@style/style_text_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:text="x" />
 
         <EditText
@@ -39,6 +48,8 @@
             style="@style/style_text_grade"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             tools:hint="20.00" />
 
         <TextView
@@ -46,6 +57,8 @@
             style="@style/style_text_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:text="=" />
 
         <TextView
@@ -61,5 +74,6 @@
         android:id="@+id/recycler_view_sub_grades"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_sub_grade"/>
+        tools:listitem="@layout/item_sub_grade"
+        tools:itemCount="2"/>
 </LinearLayout>
