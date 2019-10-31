@@ -5,10 +5,11 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+/**
+ * Entity Class que representa un nota de un curso en la base de datos
+ */
 @Entity
 @Data
 public class Grade {
@@ -19,6 +20,10 @@ public class Grade {
     private Double percent;
     private Double grade;
 
+    /**
+     * Este atributo tiene una anotacion @ForeignKey porque indica que Course tiene un relacion
+     * con Grade de uno a muchos
+     */
     @ForeignKey(entity = Course.class, parentColumns = "id", childColumns = "idCourse")
     @ColumnInfo(name = "idCourse")
     private Integer idCourse;

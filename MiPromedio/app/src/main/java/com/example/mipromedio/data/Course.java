@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey;
 
 import lombok.Data;
 
+/**
+ * Entity Class que representa un curso en la base de datos
+ */
 @Entity
 @Data
 public class Course {

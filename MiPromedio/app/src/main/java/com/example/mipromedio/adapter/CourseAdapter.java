@@ -16,6 +16,9 @@ import com.example.mipromedio.data.Course;
 
 import java.util.List;
 
+/**
+ * Adaptador de RecylerView que muestra una lista de cursos
+ */
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
     private List<Course> mCourses;
@@ -49,6 +52,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         else return 0;
     }
 
+    /**
+     * Asigna una nueva lista de cursos y lo notifica al adaptador
+     * @param courses Lista de cursos
+     */
     public void setCourses(List<Course> courses) {
         this.mCourses = courses;
         notifyDataSetChanged();
