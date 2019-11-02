@@ -1,11 +1,11 @@
 package com.example.mipromedio.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +13,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mipromedio.R;
-import com.example.mipromedio.data.model.Course;
-import com.example.mipromedio.data.repository.CourseRepository;
 
 public class AddNewCourseDialogFragment extends DialogFragment {
 
-    private CourseRepository courseRepository;
+    private CourseDialogListener listener;
 
-    public AddNewCourseDialogFragment(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public AddNewCourseDialogFragment() {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try{
+            listener = (CourseDialogListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(getActivity().toString() + " must implement CourseDialogListener");
+        }
     }
 
     @NonNull
@@ -34,16 +41,21 @@ public class AddNewCourseDialogFragment extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText mNameEditText = view.findViewById(R.id.name);
-                        courseRepository.create(new Course(mNameEditText.getText().toString()));
+                        listener.onDialogPositiveClick(AddNewCourseDialogFragment.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                        listener.onDialogNegativeClick(AddNewCourseDialogFragment.this);
                     }
                 });
         return builder.create();
+    }
+
+    public interface CourseDialogListener{
+        public void onDialogPositiveClick(DialogFragment fragment);
+        public void onDialogNegativeClick(DialogFragment fragment);
+
     }
 }

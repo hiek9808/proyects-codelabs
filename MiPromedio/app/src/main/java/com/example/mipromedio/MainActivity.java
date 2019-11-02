@@ -4,14 +4,16 @@ import android.os.Bundle;
 
 import com.example.mipromedio.adapter.CourseAdapter;
 import com.example.mipromedio.data.model.Course;
-import com.example.mipromedio.data.repository.CourseRepository;
 import com.example.mipromedio.view.AddNewCourseDialogFragment;
+import com.example.mipromedio.viewmodel.CourseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,28 +21,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddNewCourseDialogFragment.CourseDialogListener{
 
+    private CourseViewModel mCourseViewModel;
 
-    private CourseRepository courseRepository;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        courseRepository = new CourseRepository(getApplication());
+        mCourseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
 
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final CourseAdapter adapter = new CourseAdapter(this);
-        //final AddNewCourseDialogFragment addNewCourseDialogFragment = new AddNewCourseDialogFragment(MainActivity.this);
 
 
-        courseRepository.getAll().observe(this, new Observer<List<Course>>() {
+        mCourseViewModel.getAllCourses().observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
                 adapter.setCourses(courses);
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 createDialog();
-                //Snackbar.make(view, "", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
             }
         });
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         int position = viewHolder.getAdapterPosition();
                         Course course = adapter.getCourseAtPosition(position);
 
-                        courseRepository.delete(course);
+                        mCourseViewModel.delete(course);
                     }
                 }
         );
@@ -109,7 +111,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createDialog(){
-        AddNewCourseDialogFragment newFragment = new AddNewCourseDialogFragment(courseRepository);
+        AddNewCourseDialogFragment newFragment = new AddNewCourseDialogFragment();
         newFragment.show(getSupportFragmentManager(), "courses");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment fragment) {
+        EditText nNameEditText = fragment.getDialog().findViewById(R.id.name);
+        mCourseViewModel.insert(new Course(nNameEditText.getText().toString()));
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment fragment) {
+        fragment.getDialog().cancel();
     }
 }
