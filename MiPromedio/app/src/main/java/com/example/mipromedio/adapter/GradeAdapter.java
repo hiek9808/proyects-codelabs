@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mipromedio.R;
 import com.example.mipromedio.data.model.Grade;
-import com.example.mipromedio.data.repository.SubGradeRepository;
+import com.example.mipromedio.viewmodel.GradeViewModel;
 
 import java.util.List;
 
@@ -26,12 +26,11 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
     private Context mContext;
     private final LayoutInflater inflater;
     private SubGradeAdapter mAdapter;
-    private SubGradeRepository mRepository;
+    private GradeViewModel mGradeViewModel;
 
-    public GradeAdapter(Context context, SubGradeRepository repository) {
+    public GradeAdapter(Context context) {
         mContext = context;
         inflater = LayoutInflater.from(mContext);
-        mRepository = repository;
     }
 
     @NonNull
@@ -54,7 +53,7 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
             holder.mGradeTextView.setText(String.valueOf(current.getGrade()));
         }
 
-        mRepository.getAllByGrade(current.getId(), mAdapter);
+        mGradeViewModel.getAllSubGradesByGrade(current.getId(), mAdapter);
     }
 
     @Override
@@ -70,6 +69,10 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
     public void setGrades(List<Grade> grades) {
         this.mGrades = grades;
         notifyDataSetChanged();
+    }
+
+    public void setGradeViewModel(GradeViewModel mGradeViewModel) {
+        this.mGradeViewModel = mGradeViewModel;
     }
 
     /**
