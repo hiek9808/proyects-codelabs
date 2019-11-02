@@ -1,9 +1,11 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.example.mipromedio.data.model.Grade;
 
 import java.util.List;
 

@@ -1,9 +1,11 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.example.mipromedio.data.model.Grade;
 
 import lombok.Data;
 

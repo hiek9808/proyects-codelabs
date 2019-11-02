@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mipromedio.R;
-import com.example.mipromedio.data.Grade;
-import com.example.mipromedio.data.SubGrade;
-import com.example.mipromedio.data.SubGradeRepository;
+import com.example.mipromedio.data.model.Grade;
+import com.example.mipromedio.data.repository.SubGradeRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter del RecyclerView que muestra una lista de notas
+ */
 public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHolder> {
 
     private List<Grade> mGrades;
@@ -62,11 +63,18 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
         else return 0;
     }
 
-    public void setGrades(List<Grade> mGrades) {
-        this.mGrades = mGrades;
+    /**
+     * Asigna una lista de notas al RecyclerView
+     * @param grades Notas de un curso.
+     */
+    public void setGrades(List<Grade> grades) {
+        this.mGrades = grades;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder del adaptador que contiene los views del item
+     */
     public class GradeViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mNameTextView;

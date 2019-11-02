@@ -1,8 +1,12 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.repository;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.mipromedio.data.AppDatabase;
+import com.example.mipromedio.data.dao.GradeDao;
+import com.example.mipromedio.data.model.Grade;
 
 import java.util.List;
 

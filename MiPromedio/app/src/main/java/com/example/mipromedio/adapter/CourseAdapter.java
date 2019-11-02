@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mipromedio.GradeActivity;
 import com.example.mipromedio.R;
-import com.example.mipromedio.data.Course;
+import com.example.mipromedio.data.model.Course;
 
 import java.util.List;
 
 /**
- * Adaptador de RecylerView que muestra una lista de cursos
+ * Adaptador del RecylerView que muestra una lista de cursos
  */
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
@@ -61,10 +61,18 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         notifyDataSetChanged();
     }
 
+    /**
+     * retorna un curso de la posicion requerida
+     * @param position posicion del curso en el RecyclerView
+     * @return curso de la posicion dada
+     */
     public Course getCourseAtPosition(int position){
         return mCourses.get(position);
     }
 
+    /**
+     * ViewHolder del adaptador que contiene los views del item
+     */
     public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView mCourseTextView;
@@ -81,6 +89,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
         @Override
         public void onClick(View v) {
+            startGradeActivity();
+        }
+
+        /**
+         * Metodo que inicia GradeActivity.
+         * incia con id y nombre del curso seleccionado
+         */
+        private void startGradeActivity(){
             Course currentCourse = mCourses.get(getAdapterPosition());
             Intent intent = new Intent(mContext, GradeActivity.class);
             intent.putExtra("id", currentCourse.getId());

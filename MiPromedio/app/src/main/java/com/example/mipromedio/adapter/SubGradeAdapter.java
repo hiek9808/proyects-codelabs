@@ -11,10 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mipromedio.R;
-import com.example.mipromedio.data.SubGrade;
+import com.example.mipromedio.data.model.SubGrade;
 
 import java.util.List;
 
+/**
+ * Adapter del RecyclerView que muestra una lista de subnotas.
+ */
 public class SubGradeAdapter extends RecyclerView.Adapter<SubGradeAdapter.SubGradeViewHolder> {
 
     private List<SubGrade> subGrades;
@@ -44,12 +47,18 @@ public class SubGradeAdapter extends RecyclerView.Adapter<SubGradeAdapter.SubGra
         else return 0;
     }
 
-
+    /**
+     * Asigna una listas de sub notas en el RecyclerView y lo notifica al adapter.
+     * @param subGrades Lista de sub notas de una nota.
+     */
     public void setSubGrades(List<SubGrade> subGrades) {
         this.subGrades = subGrades;
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder del adaptador
+     */
     public class SubGradeViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mNameTextView;

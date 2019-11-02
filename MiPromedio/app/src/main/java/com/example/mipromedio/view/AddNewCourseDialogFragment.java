@@ -1,4 +1,4 @@
-package com.example.mipromedio.ui;
+package com.example.mipromedio.view;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mipromedio.R;
-import com.example.mipromedio.data.Course;
-import com.example.mipromedio.data.CourseRepository;
+import com.example.mipromedio.data.model.Course;
+import com.example.mipromedio.data.repository.CourseRepository;
 
 public class AddNewCourseDialogFragment extends DialogFragment {
 

@@ -3,9 +3,9 @@ package com.example.mipromedio;
 import android.os.Bundle;
 
 import com.example.mipromedio.adapter.CourseAdapter;
-import com.example.mipromedio.data.Course;
-import com.example.mipromedio.data.CourseRepository;
-import com.example.mipromedio.ui.AddNewCourseDialogFragment;
+import com.example.mipromedio.data.model.Course;
+import com.example.mipromedio.data.repository.CourseRepository;
+import com.example.mipromedio.view.AddNewCourseDialogFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;

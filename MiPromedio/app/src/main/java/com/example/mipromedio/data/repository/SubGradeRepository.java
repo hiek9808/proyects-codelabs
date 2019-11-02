@@ -1,10 +1,12 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 import com.example.mipromedio.adapter.SubGradeAdapter;
+import com.example.mipromedio.data.AppDatabase;
+import com.example.mipromedio.data.dao.SubGradeDao;
+import com.example.mipromedio.data.model.SubGrade;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

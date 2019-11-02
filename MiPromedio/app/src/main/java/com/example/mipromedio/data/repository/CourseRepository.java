@@ -1,9 +1,13 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.mipromedio.data.AppDatabase;
+import com.example.mipromedio.data.dao.CourseDao;
+import com.example.mipromedio.data.model.Course;
 
 import java.util.List;
 

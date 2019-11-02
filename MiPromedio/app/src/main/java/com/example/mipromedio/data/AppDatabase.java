@@ -10,15 +10,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.mipromedio.data.dao.CourseDao;
+import com.example.mipromedio.data.dao.GradeDao;
+import com.example.mipromedio.data.dao.SubGradeDao;
+import com.example.mipromedio.data.model.Course;
+import com.example.mipromedio.data.model.Grade;
+import com.example.mipromedio.data.model.SubGrade;
+
 @Database(entities = {Course.class, Grade.class, SubGrade.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase{
 
     private static AppDatabase INSTANCE;
-
     public abstract CourseDao courseDao();
-
     public abstract GradeDao gradeDao();
-
     public abstract SubGradeDao subGradeDao();
 
     private static AppDatabase.Callback sRoomDataBaseCallBack = new RoomDatabase.Callback(){
@@ -70,10 +74,23 @@ public abstract class AppDatabase extends RoomDatabase{
                 mGradeDao.create(new Grade("grade 2", 0.4, 16.0, 1));
                 mGradeDao.create(new Grade("grade 3", 0.1, 16.0, 1));
                 mGradeDao.create(new Grade("grade 4", 0.2, 16.0, 1));
+                mGradeDao.create(new Grade("grade 5", 0.3, 16.0, 1));
+                mGradeDao.create(new Grade("grade 6", 0.4, 16.0, 1));
+                mGradeDao.create(new Grade("grade 7", 0.1, 16.0, 1));
+                mGradeDao.create(new Grade("grade 8", 0.2, 16.0, 1));
+                mGradeDao.create(new Grade("grade 9", 0.3, 16.0, 1));
+                mGradeDao.create(new Grade("grade 10", 0.4, 16.0, 1));
+                mGradeDao.create(new Grade("grade 11", 0.1, 16.0, 1));
+                mGradeDao.create(new Grade("grade 12", 0.2, 16.0, 1));
                 Log.d("course: ", mGradeDao.getAllByCourse(1).toString());
                 mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 1));
                 mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 1));
                 Log.d("sub grade: ", mSubGradeDao.getAllByGrade(1).toString() );
+                mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 2));
+                mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 2));
+                mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 3));
+                mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 3));
+
             }
 
 

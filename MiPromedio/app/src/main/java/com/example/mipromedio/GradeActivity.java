@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.mipromedio.adapter.GradeAdapter;
-import com.example.mipromedio.data.Grade;
-import com.example.mipromedio.data.GradeRepository;
-import com.example.mipromedio.data.SubGradeRepository;
+import com.example.mipromedio.data.model.Grade;
+import com.example.mipromedio.data.repository.GradeRepository;
+import com.example.mipromedio.data.repository.SubGradeRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GradeActivity extends AppCompatActivity {

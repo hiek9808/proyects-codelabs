@@ -1,4 +1,4 @@
-package com.example.mipromedio.data;
+package com.example.mipromedio.data.model;
 
 
 import androidx.room.Entity;
