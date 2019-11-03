@@ -25,7 +25,6 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
     private List<Grade> mGrades;
     private Context mContext;
     private final LayoutInflater inflater;
-    private SubGradeAdapter mAdapter;
     private GradeViewModel mGradeViewModel;
 
     public GradeAdapter(Context context) {
@@ -37,10 +36,6 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
     @Override
     public GradeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_grade, parent, false);
-        mAdapter = new SubGradeAdapter(mContext);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_sub_grades);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         return new GradeViewHolder(view);
     }
 
@@ -50,9 +45,12 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
         holder.mNameTextView.setText(current.getName());
         holder.mPercentTextView.setText((int)(current.getPercent() * 100) + "%");
         if (current.getGrade() != null){
-            holder.mGradeTextView.setText(String.valueOf(current.getGrade()));
+            holder.mGradeEditText.setText(String.valueOf(current.getGrade()));
         }
-
+        holder.mGradeTextView.setText(String.valueOf(current.getPercent() * current.getGrade()));
+        SubGradeAdapter mAdapter = new SubGradeAdapter(mContext);
+        holder.mSubGradeRecyclerView.setAdapter(mAdapter);
+        holder.mSubGradeRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mGradeViewModel.getAllSubGradesByGrade(current.getId(), mAdapter);
     }
 
@@ -61,6 +59,14 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
         if (mGrades != null) return mGrades.size();
         else return 0;
     }
+
+    @Override
+    public void onViewRecycled(@NonNull GradeViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        holder.saveGrade();
+    }
+
 
     /**
      * Asigna una lista de notas al RecyclerView
@@ -71,19 +77,28 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
         notifyDataSetChanged();
     }
 
+    public List<Grade> getGrades() {
+        return mGrades;
+    }
+
     public void setGradeViewModel(GradeViewModel mGradeViewModel) {
         this.mGradeViewModel = mGradeViewModel;
+    }
+
+    public Grade getGradeAtPosition(Integer position){
+        return mGrades.get(position);
     }
 
     /**
      * ViewHolder del adaptador que contiene los views del item
      */
-    public class GradeViewHolder extends RecyclerView.ViewHolder {
+    public class GradeViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
         private final TextView mNameTextView;
         private final TextView mPercentTextView;
         private final EditText mGradeEditText;
         private final TextView mGradeTextView;
+        private final RecyclerView mSubGradeRecyclerView;
 
         public GradeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +107,36 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.GradeViewHol
             mPercentTextView = itemView.findViewById(R.id.text_grade_percent);
             mGradeEditText = itemView.findViewById(R.id.edit_text_grade);
             mGradeTextView = itemView.findViewById(R.id.text_grade);
+            mSubGradeRecyclerView = itemView.findViewById(R.id.recycler_view_sub_grades);
+            mSubGradeRecyclerView.setVisibility(View.GONE);
+            mNameTextView.setOnLongClickListener(this);
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mSubGradeRecyclerView.getVisibility() == View.GONE){
+                mSubGradeRecyclerView.setVisibility(View.VISIBLE);
+            } else {
+                mSubGradeRecyclerView.setVisibility(View.GONE);
+            }
+            return true;
+        }
+
+        void saveGrade(){
+            int position = getAdapterPosition();
+            if (position != -1){
+                Grade current = mGrades.get(position);
+                String name = mNameTextView.getText().toString();
+                // TODO Change later
+                Double percent = mGrades.get(position).getPercent();
+                Double grade = Double.parseDouble(mGradeEditText.getText().toString());
+                current.setGrade(grade);
+                mGradeViewModel.updateGrade(current);
+                //mGrades.set(position, current);
+                //mGradeViewModel.updateGrade(gradeUpdated);
+            }
+
+        }
+
     }
 }

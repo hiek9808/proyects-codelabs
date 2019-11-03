@@ -3,6 +3,7 @@ package com.example.mipromedio.data.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.mipromedio.data.model.Course;
@@ -29,6 +30,11 @@ public class Grade {
     @ForeignKey(entity = Course.class, parentColumns = "id", childColumns = "idCourse")
     @ColumnInfo(name = "idCourse")
     private Integer idCourse;
+
+    @Ignore
+    public Grade(){
+
+    }
 
     public Grade(String name, Double percent, Double grade, Integer idCourse) {
         this.name = name;

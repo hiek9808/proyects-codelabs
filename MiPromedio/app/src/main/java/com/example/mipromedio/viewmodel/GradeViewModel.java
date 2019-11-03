@@ -28,15 +28,16 @@ public class GradeViewModel extends AndroidViewModel {
 
     }
 
-    public void insert(Grade grade) {
+    public void insertGrade(Grade grade) {
         mGradeRepository.create(grade);
     }
 
     public void delete(Grade grade) {
+        mGradeRepository.delete(grade);
     }
 
-    public void insert(SubGrade grade){
-
+    public void updateGrade(Grade grade){
+        mGradeRepository.update(grade);
     }
 
     public LiveData<List<Grade>> getAllGradesByCourse(Integer idCourse) {
@@ -69,4 +70,6 @@ public class GradeViewModel extends AndroidViewModel {
             mAdapter.get().setSubGrades(subGrades);
         }
     }
+
+
 }

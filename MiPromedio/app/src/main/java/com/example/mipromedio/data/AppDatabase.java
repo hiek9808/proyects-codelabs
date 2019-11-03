@@ -86,10 +86,10 @@ public abstract class AppDatabase extends RoomDatabase{
                 mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 1));
                 mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 1));
                 Log.d("sub grade: ", mSubGradeDao.getAllByGrade(1).toString() );
-                mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 2));
-                mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 2));
-                mSubGradeDao.create(new SubGrade("sub grade 1", 0.5, 16.0, 3));
-                mSubGradeDao.create(new SubGrade("sub grade 2", 0.5, 16.0, 3));
+                mSubGradeDao.create(new SubGrade("sub grade 3", 0.5, 16.0, 2));
+                mSubGradeDao.create(new SubGrade("sub grade 4", 0.5, 16.0, 2));
+                mSubGradeDao.create(new SubGrade("sub grade 5", 0.5, 16.0, 3));
+                mSubGradeDao.create(new SubGrade("sub grade 6", 0.5, 16.0, 3));
 
             }
 

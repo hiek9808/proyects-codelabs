@@ -1,6 +1,7 @@
 package com.example.mipromedio.data.repository;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -20,10 +21,64 @@ public class GradeRepository {
     }
 
     public void create(Grade grade) {
-        mGradeDao.create(grade);
+
+        new CreateGradeAsyncTask(mGradeDao).execute(grade);
     }
 
     public LiveData<List<Grade>> getAll(Integer id) {
         return mGradeDao.getAllByCourse(id);
+    }
+
+    public void delete(Grade grade) {
+        new DeleteGradeAsyncTask(mGradeDao).execute(grade);
+    }
+
+    public void update(Grade grade) {
+        new UpdateGradeAsyncTask(mGradeDao).execute(grade);
+    }
+
+    private static class DeleteGradeAsyncTask extends AsyncTask<Grade, Void, Void> {
+
+        private GradeDao mAsyncTaskDao;
+
+        public DeleteGradeAsyncTask(GradeDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Grade... grades) {
+            mAsyncTaskDao.delete(grades[0]);
+            return null;
+        }
+    }
+
+    private static class CreateGradeAsyncTask extends AsyncTask<Grade, Void, Void> {
+
+        private GradeDao mAsyncTaskDao;
+
+        CreateGradeAsyncTask(GradeDao dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Grade... grades) {
+            mAsyncTaskDao.create(grades[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateGradeAsyncTask extends AsyncTask<Grade, Void, Void>{
+
+        private GradeDao mAsyncTaskDao;
+
+        public UpdateGradeAsyncTask(GradeDao mAsyncTaskDao) {
+            this.mAsyncTaskDao = mAsyncTaskDao;
+        }
+
+        @Override
+        protected Void doInBackground(Grade... grades) {
+            mAsyncTaskDao.update(grades[0]);
+            return null;
+        }
     }
 }

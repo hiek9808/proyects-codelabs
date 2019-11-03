@@ -50,6 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
+            android:inputType="number"
+            android:maxLength="5"
+            android:selectAllOnFocus="true"
             tools:hint="20.00" />
 
         <TextView
